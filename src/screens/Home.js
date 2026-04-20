@@ -27,7 +27,7 @@ export default function Home() {
       <View style={{ height: 60, width: '100%', backgroundColor: '#20DCE6', justifyContent: 'flex-end' }}>
         <View style={{ justifyContent: 'flex-end', paddingBottom: 3, paddingLeft: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-            OLIMAT 2025
+            OLIMAT 2026
           </Text>
         </View>
       </View>

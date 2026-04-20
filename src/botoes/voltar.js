@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { GlobalContext } from '../context'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { Entypo } from 'react-native-vector-icons'
+import { Entypo } from '@expo/vector-icons'
 
 export default function Voltar() {
     const { setTela, listaDeTelas, setListaDeTelas } = useContext(GlobalContext)

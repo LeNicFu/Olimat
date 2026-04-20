@@ -33,19 +33,19 @@ export default function ApagarLista() {
                 <View style={estilos.containerConfereNumero}>
                     <Text style={estilos.confereNumero}>
                         Após a confirmação, toda a lista será apagada definitivamente!{'\n'}
-                        É preciso digitar o número 2025 e depois confirmar.
+                        É preciso digitar o número 2026 e depois confirmar.
                     </Text>
                 </View>
                 <View style={{ height: 20 }} />
                 <TextInput
                     style={estilos.nome}
-                    placeholder="Digite 2025"
+                    placeholder="Digite 2026"
                     onChangeText={newNumero => setNumero(newNumero)}
                     defaultValue={numero}
                 />
                 <View style={estilos.containerBotaoExcluir}>
                     <TouchableOpacity style={estilos.botaoExcluir}
-                        onPress={() => (numero == 2025 ? [Apaga(), setTela('home'), setListaDeTelas(['home'])] : undefined)}
+                        onPress={() => (numero == 2026 ? [Apaga(), setTela('home'), setListaDeTelas(['home'])] : undefined)}
                     >
                         <Text style={estilos.textoBotao}>
                             Confirmar
