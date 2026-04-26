@@ -2,12 +2,13 @@ import { useContext, useEffect } from 'react'
 import { GlobalContext } from '../context'
 import Home from '../screens/Home'
 import Nome from '../screens/Nome'
-import Lista from '../screens/Lista'
 import Scanner from '../screens/Scanner'
 import Enviar from '../screens/Enviar'
 import ApagarLista from '../screens/ApagarLista'
 import Editar from '../screens/Editar'
 import EditarNome from '../screens/EditarNome'
+import Listas from '../screens/Listas'
+import ListaOrdenada from '../screens/ListaOrdenada'
 
 export default function Manager() {
     const { tela, listaDeTelas } = useContext(GlobalContext)
@@ -21,8 +22,8 @@ export default function Manager() {
     if (tela === 'nome') {
         return <Nome />
     }
-    if (tela === 'lista') {
-        return <Lista />
+    if (tela === 'listaOrdenada') {
+        return <ListaOrdenada />
     }
     if (tela === 'enviar') {
         return <Enviar />
@@ -35,5 +36,8 @@ export default function Manager() {
     }
     if (tela === 'editarNome') {
         return <EditarNome />
+    }
+    if (tela === 'listas') {
+        return <Listas />
     }
 }

@@ -1,39 +1,43 @@
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import Screen from '../build/Screen'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../context'
+import Screen from '../build/Screen'
 import { getAlunos } from '../data'
 
-export default function Lista() {
-    const { listaDeTelas, setListaDeTelas, setTela } = useContext(GlobalContext)
-    //console.log('LISTA DE TELAS:', listaDeTelas)
+export default function ListaOrdenada() {
+    const { listaDeTelas, setListaDeTelas, setTela, fatorDeOrdenacao } = useContext(GlobalContext)
 
-    const [alunos, setAlunos] = useState([]);
+    const [alunos, setAlunos] = useState([])
 
     useEffect(() => {
         setAlunos(getAlunos())
-    }, []);
+    }, [])
 
-    function ListaOrdemAlfabetica() {
-        alunos.sort(function (a, b) {
-            if (a.nome > b.nome) {
-                return 1
-            }
-            if (a.nome < b.nome) {
-                return -1
-            }
-            if (a.nome = b.nome) {
-                return 0
-            }
-        })
+    Ordenadar()
+
+    function Ordenadar() {
+        if (fatorDeOrdenacao === 'nome') {
+            alunos.sort(function (a, b) {
+                return a.nome.localeCompare(b.nome, 'pt', { sensitivity: 'base' })
+            })
+        } else if (fatorDeOrdenacao === 'id') {
+            alunos.sort(function (a, b) {
+                if (a.id > b.id) {
+                    return -1
+                }
+                if (a.id < b.id) {
+                    return 1
+                }
+                if (a.id = b.id) {
+                    return 0
+                }
+            })
+        } else if (fatorDeOrdenacao === 'codigo') {
+            alunos.sort(function (a, b) {
+                return Number(a.codigo) - Number(b.codigo)
+            })
+        }
     }
-
-    // const listaOrdenada = listaDoMes.sort(function (a, b) {
-    //     return a.produto.localeCompare(b.produto, 'pt', { sensitivity: 'base' });
-    // })
-
-
-    ListaOrdemAlfabetica()
 
     const { setCodigo, setNome, setId } = useContext(GlobalContext)
     async function editar(c, n, i) {
@@ -68,7 +72,7 @@ export default function Lista() {
                         </Text>
                     </View>
                 }}
-                ListFooterComponent={() => <View style={{height: 40}} />}
+                ListFooterComponent={() => <View style={{ height: 40 }} />}
             />
         }
     />

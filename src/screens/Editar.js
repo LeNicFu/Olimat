@@ -1,10 +1,9 @@
-import { useContext } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import Screen from '../build/Screen'
+import estilos, { estilo } from '../styles'
 import { GlobalContext } from '../context'
+import Screen from '../build/Screen'
 import { apagarNome } from '../data'
-import { estilo } from '../screens/Lista'
-import estilos from '../styles'
+import { useContext } from 'react'
 
 export default function Editar() {
     const { codigo, nome, id, setTela, listaDeTelas, setListaDeTelas } = useContext(GlobalContext)

@@ -6,16 +6,15 @@ import { GlobalContext } from '../context'
 import Navegar from '../botoes/navegar'
 import Apagar from '../botoes/apagar'
 import { CriarTabelaAlunos, getAlunos } from '../data'
+import Teste from '../data/ids'
 
 
 export default function Home() {
   const { tela, setTela, listaDeTelas, setListaDeTelas } = useContext(GlobalContext)
-  //console.log('LISTA DE TELAS:', listaDeTelas)
 
   useEffect(() => {
     setListaDeTelas(['home'])
     CriarTabelaAlunos()
-    // console.log('Lista de alunos', getAlunos())
   }, [])
 
   async function limpaNome() {
@@ -38,13 +37,14 @@ export default function Home() {
             titulo={'Ler código'}
           />
           <Navegar
-            proximaTela={'lista'}
+            proximaTela={'listas'}
             titulo={'Lista'}
           />
           <Navegar
             proximaTela={'enviar'}
             titulo={'Enviar a lista'}
           />
+          <Teste />
           <Apagar
             proximaTela={'apagarLista'}
             titulo={'Apagar a lista'}

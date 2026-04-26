@@ -1,14 +1,13 @@
 import { Text, View, TextInput, TouchableOpacity } from 'react-native'
-import Screen from '../build/Screen'
-import Navegar from '../botoes/navegar'
 import { useContext, useState } from 'react'
 import { GlobalContext } from '../context'
+import Navegar from '../botoes/navegar'
 import { apagarLista } from '../data'
+import Screen from '../build/Screen'
 import estilos from '../styles'
 
 export default function ApagarLista() {
     const { listaDeTelas, setListaDeTelas, setTela } = useContext(GlobalContext)
-    //console.log('LISTA DE TELAS:', listaDeTelas)
 
     const [numero, setNumero] = useState(undefined)
 

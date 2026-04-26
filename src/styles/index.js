@@ -72,3 +72,25 @@ export default StyleSheet.create({
         marginTop: 10
     }
 })
+
+export const estilo = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 65,
+        backgroundColor: '#BCB9BA',
+        marginHorizontal: 4,
+        marginVertical: 2,
+        borderRadius: 8
+    },
+    textoNome: {
+        fontSize: 20,
+        lineHeight: 24,
+        fontWeight: '500'
+    },
+    textoCodigo: {
+        fontSize: 17,
+        lineHeight: 23,
+        fontWeight: '500'
+    }
+})
