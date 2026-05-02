@@ -6,11 +6,11 @@ import { GlobalContext } from '../context'
 import Navegar from '../botoes/navegar'
 import Apagar from '../botoes/apagar'
 import { CriarTabelaAlunos, getAlunos } from '../data'
-import Teste from '../data/ids'
+import Teste from '../data/schools'
 
 
 export default function Home() {
-  const { tela, setTela, listaDeTelas, setListaDeTelas } = useContext(GlobalContext)
+  const { tela, setTela, listaDeTelas, setListaDeTelas, escola } = useContext(GlobalContext)
 
   useEffect(() => {
     setListaDeTelas(['home'])

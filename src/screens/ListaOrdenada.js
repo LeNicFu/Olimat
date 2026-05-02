@@ -3,15 +3,10 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../context'
 import Screen from '../build/Screen'
 import { getAlunos } from '../data'
+import { School } from '../data/schools'
 
 export default function ListaOrdenada() {
-    const { listaDeTelas, setListaDeTelas, setTela, fatorDeOrdenacao } = useContext(GlobalContext)
-
-    const [alunos, setAlunos] = useState([])
-
-    useEffect(() => {
-        setAlunos(getAlunos())
-    }, [])
+    const { listaDeTelas, setListaDeTelas, setTela, fatorDeOrdenacao, alunos, escola } = useContext(GlobalContext)
 
     Ordenadar()
 
@@ -58,7 +53,7 @@ export default function ListaOrdenada() {
     }
 
     return <Screen
-        topBarTitle={'Lista'}
+        topBarTitle={`Alunos registrados (${alunos.length})`}
         body={
             <FlatList
                 style={{ backgroundColor: '#00AEE7', width: '100%' }}
@@ -67,8 +62,11 @@ export default function ListaOrdenada() {
                 renderItem={({ item }) => EstiloLista(item.codigo, item.nome, item.id)}
                 ListHeaderComponent={() => {
                     return <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-                        <Text style={estilo.textoNome}>
-                            {`Total de alunos registrados:   ${alunos.length}`}
+                        <Text style={estilo.textoEscola}>
+                            {escola}
+                        </Text>
+                        <Text style={{fontSize: 18, lineHeight: 24, fontWeight: '500'}}>
+                            Total:   {alunos.length}
                         </Text>
                     </View>
                 }}
@@ -92,6 +90,12 @@ export const estilo = StyleSheet.create({
         fontSize: 20,
         lineHeight: 24,
         fontWeight: '500'
+    },
+    textoEscola: {
+        fontSize: 20,
+        lineHeight: 24,
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     textoCodigo: {
         fontSize: 17,

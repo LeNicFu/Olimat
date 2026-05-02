@@ -2,8 +2,8 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 const ids = require('./paginaAno.json')
 
-export function SchoolId(code) {
-    for(let i = 0; i < ids.length; i++) {
+export function School(code) {
+    for (let i = 0; i < ids.length; i++) {
         const escola = ids[i]
         const Ano6a = escola.Ano6a
         const Ano9b = escola.Ano9b
@@ -11,14 +11,24 @@ export function SchoolId(code) {
             return escola.NomeDaEscola
         }
     }
-    return 'O código escaneado não pertence a nenhuma escola cadastrada!'
+    return false
+    // 'O código escaneado não pertence a nenhuma escola cadastrada. Provavelmente ocorreu algum erro. Escanei novamente.'
 }
+
+export function SchoolCheck(school) {
+
+    if(school1 === school2){
+        return true
+    }
+    return false
+}
+
+
 
 export default function Teste() {
     return <TouchableOpacity
         style={styles.container}
-        // onPress={() => console.log(ids[0], '\n_________________________________________')}
-        onPress={() => console.log(SchoolId(13225))}
+        onPress={() => console.log(School(3284))}
     >
         <Text style={styles.label}>
             Teste

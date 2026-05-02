@@ -38,4 +38,5 @@ export function apagarLista() {
         DROP TABLE IF EXISTS alunos;
     `)
     return console.log('A lista foi apagada.')
-}// 86
+}
+// 86
