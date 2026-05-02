@@ -5,14 +5,16 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../context'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import estilos from '../styles'
+import { getAlunos } from '../data'
+import Checking from '../Checking'
 
 export default function Scanner() {
-    const { listaDeTelas, setListaDeTelas, codigo, setCodigo, setNome, setTela } = useContext(GlobalContext)
+    const { listaDeTelas, setListaDeTelas, codigo, setCodigo, setNome, setTela, scanned, setScanned, setAlunos } = useContext(GlobalContext)
     useEffect(() => {
+        setAlunos(getAlunos())
         setNome('')
+        setScanned(false)
     }, [])
-
-    const [scanned, setScanned] = useState(false)
 
     const handleCodeScanned = (code) => {
 
@@ -51,29 +53,7 @@ export default function Scanner() {
                         <CameraView style={{ flex: 1 }} barcodeScannerSettings={{ barCodeTypes: ['code128'] }} onBarcodeScanned={handleCodeScanned} />
                     </View>
                     :
-                    <>
-                        <View style={estilos.containerConfereNumero}>
-                            <Text style={estilos.confereNumero}>
-                                {codigo}
-                            </Text>
-                            <Text style={estilos.confereNumero}>
-                                Se o número estiver correto confirme no botão abaixo para digitar o nome,
-                                caso contrário, toque no botão para escanear novamente.
-                            </Text>
-                        </View>
-                        <Navegar
-                            proximaTela={'nome'}
-                            titulo={'Nome'}
-                        />
-                        <View style={estilos.containerBotao}>
-                            <TouchableOpacity style={estilos.botao}
-                                onPress={() => setScanned(false)}>
-                                <Text style={estilos.textoBotao}>
-                                    Escanear novamente
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </>
+                    <Checking />
                 }
             </View>
         }

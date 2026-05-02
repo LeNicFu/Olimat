@@ -15,16 +15,6 @@ export function School(code) {
     // 'O código escaneado não pertence a nenhuma escola cadastrada. Provavelmente ocorreu algum erro. Escanei novamente.'
 }
 
-export function SchoolCheck(school) {
-
-    if(school1 === school2){
-        return true
-    }
-    return false
-}
-
-
-
 export default function Teste() {
     return <TouchableOpacity
         style={styles.container}

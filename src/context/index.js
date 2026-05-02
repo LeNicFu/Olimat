@@ -9,7 +9,9 @@ export function InfoProvider({ children }) {
     const [tela, setTela] = useState('home')
     const [escola, setEscola] = useState('')
     const [alunos, setAlunos] = useState([])
+    const [scanned, setScanned] = useState(false)
     const [listaDeTelas, setListaDeTelas] = useState(['home'])
+    const [checkingSchool, setCheckingSchool] = useState(false)
     const [fatorDeOrdenacao, setFatorDeOrdenacao] = useState(null)
 
     const [test, setTest] = useState(0)    
@@ -22,7 +24,9 @@ export function InfoProvider({ children }) {
             codigo, setCodigo,
             escola, setEscola,
             alunos, setAlunos,
+            scanned, setScanned,
             listaDeTelas, setListaDeTelas,
+            checkingSchool, setCheckingSchool,
             fatorDeOrdenacao, setFatorDeOrdenacao,
 
             test, setTest
