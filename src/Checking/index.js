@@ -1,92 +1,30 @@
-import { useContext } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { GlobalContext } from '../context'
-import estilos from '../styles'
-import Navegar from '../botoes/navegar'
-import { School } from '../data/schools'
+const ids = require('../data/paginaAno.json')
 
-
-export default function Checking() {
-    const { codigo, alunos, setScanned, escola } = useContext(GlobalContext)
-
-    const checkCode = () => {
-        for (let i = 0; i < alunos.length; i++) {
-            const item = alunos[i]
-            if (codigo == item.codigo) {
-                console.log('Código já cadastrado para o aluno:', item.nome)
-                return false
-            }
+export const School = (code) => {
+    for (let i = 0; i < ids.length; i++) {
+        const escola = ids[i]
+        const Ano6a = escola.Ano6a
+        const Ano9b = escola.Ano9b
+        if (code >= Ano6a && code <= Ano9b) {
+            return escola.NomeDaEscola
         }
+    }
+    return false
+}
+
+export const checkSchool =  (escola, codigo) => {
+    const school =  School(codigo)
+    if (escola === school) {
         return true
     }
+    return false
+}
 
-    const checkSchool = async () => {
-        const school = await School(codigo)
-        console.log(school)
-        if (escola === school) {
-            return true
+export const checkCode = (alunos, codigo) => {
+    for (let i = 0; i < alunos.length; i++) {
+        if (codigo == alunos[i].codigo) {
+            return false
         }
-        return false
     }
-
-    // const checkingSchool = true
-    const checkingSchool = checkSchool()
-    console.log('Resultado da verificação da escola:', checkingSchool)
-
-    const checkingCode = checkCode()
-
-    return <>
-        {checkingSchool ?
-            <View>
-                <Text>
-                    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                </Text>
-            </View> :
-            <>
-                {checkingCode ?
-                    <>
-                        <View style={estilos.containerConfereNumero}>
-                            <Text style={estilos.confereNumero}>
-                                {codigo}
-                            </Text>
-                            <Text style={estilos.confereNumero}>
-                                Se o número estiver correto confirme no botão abaixo para digitar o nome, caso contrário, toque no botão para escanear novamente.
-                            </Text>
-                        </View>
-                        <Navegar
-                            proximaTela={'nome'}
-                            titulo={'Nome'}
-                        />
-                        <View style={estilos.containerBotao}>
-                            <TouchableOpacity style={estilos.botao}
-                                onPress={() => setScanned(false)}>
-                                <Text style={estilos.textoBotao}>
-                                    Escanear novamente
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </> :
-                    <>
-                        <View style={estilos.containerConfereNumero}>
-                            <Text style={estilos.confereNumero}>
-                                {codigo}
-                            </Text>
-                            <Text style={estilos.confereNumero}>
-                                {`O número escaneado já pertence a um aluno cadastrado:\n ${alunos.find(item => item.codigo === codigo)?.nome || 'Nome não encontrado'}`}
-                            </Text>
-                        </View>
-                        <View style={estilos.containerBotao}>
-                            <TouchableOpacity style={estilos.botao}
-                                onPress={() => setScanned(false)}>
-                                <Text style={estilos.textoBotao}>
-                                    Escanear novamente
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </>
-                }
-            </>
-        }
-    </>
+    return true
 }

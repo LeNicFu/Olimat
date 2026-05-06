@@ -6,15 +6,17 @@ export function InfoProvider({ children }) {
     const [id, setId] = useState('')
     const [nome, setNome] = useState('')
     const [codigo, setCodigo] = useState('')
-    const [tela, setTela] = useState('home')
     const [escola, setEscola] = useState('')
     const [alunos, setAlunos] = useState([])
+    const [tela, setTela] = useState('loading')
     const [scanned, setScanned] = useState(false)
     const [listaDeTelas, setListaDeTelas] = useState(['home'])
-    const [checkingSchool, setCheckingSchool] = useState(false)
     const [fatorDeOrdenacao, setFatorDeOrdenacao] = useState(null)
-
-    const [test, setTest] = useState(0)    
+    
+    const [erro, setErro] = useState(false)
+    const [checkingCode, setCheckingCode] = useState(false)
+    const [checkingSchool, setCheckingSchool] = useState(false)
+    
 
     return (
         <GlobalContext.Provider value={{
@@ -26,10 +28,11 @@ export function InfoProvider({ children }) {
             alunos, setAlunos,
             scanned, setScanned,
             listaDeTelas, setListaDeTelas,
-            checkingSchool, setCheckingSchool,
             fatorDeOrdenacao, setFatorDeOrdenacao,
-
-            test, setTest
+            
+            erro, setErro,
+            checkingCode, setCheckingCode,
+            checkingSchool, setCheckingSchool,
         }}>
             {children}
         </GlobalContext.Provider>

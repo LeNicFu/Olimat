@@ -1,9 +1,7 @@
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { GlobalContext } from '../context'
 import Screen from '../build/Screen'
-import { getAlunos } from '../data'
-import { School } from '../data/schools'
 
 export default function ListaOrdenada() {
     const { listaDeTelas, setListaDeTelas, setTela, fatorDeOrdenacao, alunos, escola } = useContext(GlobalContext)
@@ -53,7 +51,7 @@ export default function ListaOrdenada() {
     }
 
     return <Screen
-        topBarTitle={`Alunos registrados (${alunos.length})`}
+        topBarTitle={'Alunos registrados'}
         body={
             <FlatList
                 style={{ backgroundColor: '#00AEE7', width: '100%' }}

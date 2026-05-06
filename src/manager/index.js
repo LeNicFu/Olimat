@@ -9,10 +9,15 @@ import Editar from '../screens/Editar'
 import EditarNome from '../screens/EditarNome'
 import Listas from '../screens/Listas'
 import ListaOrdenada from '../screens/ListaOrdenada'
+import Loading from '../screens/Laoding'
+import Scanned from '../screens/Scanned'
 
 export default function Manager() {
     const { tela, listaDeTelas } = useContext(GlobalContext)
 
+    if (tela === 'loading') {
+        return <Loading />
+    }
     if (tela === 'home') {
         return <Home />
     }
@@ -39,5 +44,8 @@ export default function Manager() {
     }
     if (tela === 'listas') {
         return <Listas />
+    }
+    if (tela === 'scanned') {
+        return <Scanned />
     }
 }

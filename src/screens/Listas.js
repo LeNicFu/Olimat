@@ -1,16 +1,13 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { GlobalContext } from '../context'
-import { Text, TouchableOpacity, View } from 'react-native'
-import styles from '../styles'
-import { Entypo } from '@expo/vector-icons'
+import { View } from 'react-native'
 import { ButtonList } from '../botoes/myButton'
-import { distanceTop } from '../settings'
 import Screen from '../build/Screen'
 import { getAlunos } from '../data'
-import { School } from '../data/schools'
+import { School } from '../Checking'
 
 export default function Listas() {
-    const { listaDeTelas, setListaDeTelas, setTela, setFatorDeOrdenacao, escola, setEscola, alunos, setAlunos } = useContext(GlobalContext)
+    const { listaDeTelas, setListaDeTelas, setTela, setFatorDeOrdenacao, setEscola, alunos, setAlunos } = useContext(GlobalContext)
 
 
     useEffect(() => {

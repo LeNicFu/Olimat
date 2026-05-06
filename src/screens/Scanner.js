@@ -1,26 +1,70 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 import Screen from '../build/Screen'
-import Navegar from '../botoes/navegar'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { GlobalContext } from '../context'
 import { CameraView, useCameraPermissions } from 'expo-camera'
-import estilos from '../styles'
 import { getAlunos } from '../data'
-import Checking from '../Checking'
+import { checkCode, checkSchool, School } from '../Checking'
 
 export default function Scanner() {
-    const { listaDeTelas, setListaDeTelas, codigo, setCodigo, setNome, setTela, scanned, setScanned, setAlunos } = useContext(GlobalContext)
+    const { codigo, setCodigo, setNome, setTela, scanned, setScanned, alunos, setAlunos, setCheckingSchool, escola, setCheckingCode, setErro, erro } = useContext(GlobalContext)
+
     useEffect(() => {
         setAlunos(getAlunos())
         setNome('')
         setScanned(false)
     }, [])
 
-    const handleCodeScanned = (code) => {
+    useEffect(() => {
+        if (scanned) {
+            const resultado = School(codigo)
+            if (resultado) {
+                if (escola.length > 0) {
+                    setCheckingSchool(checkSchool(escola, codigo))
+                    setCheckingCode(checkCode(alunos, codigo))
+                } else {
+                    setCheckingCode(checkCode(alunos, codigo))
+                    setCheckingSchool(true)
+                }
+                setTela('scanned')
+            } else {
+                setErro(true)
+                setTela('scanned')
+            }
+        }
+    }, [scanned])
 
+    // useEffect(() => {
+    //     if (scanned) {
+    //         School(codigo).then(resultado => {
+    //             if (resultado) {
+    //                 if (escola.length > 0) {
+    //                     checkSchool(escola, codigo).then(resultado => {
+    //                         setCheckingSchool(resultado)
+    //                         // setTela('scanned')
+    //                     })
+    //                     checkCode(alunos, codigo).then(resultado => {
+    //                         setCheckingCode(resultado)
+    //                         setTela('scanned')
+    //                     })
+    //                 } else {
+    //                     checkCode(alunos, codigo).then(resultado => {
+    //                         setCheckingCode(resultado)
+    //                         setTela('scanned')
+    //                     })
+    //                     setCheckingSchool(true)
+    //                 }
+    //             } else {
+    //                 setErro(true)
+    //             }
+    //         })
+    //     }
+    // }, [scanned])
+
+    const handleCodeScanned = (code) => {
         if (code.data.length > 0) {
-            setScanned(true)
             setCodigo(code.data)
+            setScanned(true)
         }
     }
 
@@ -53,7 +97,9 @@ export default function Scanner() {
                         <CameraView style={{ flex: 1 }} barcodeScannerSettings={{ barCodeTypes: ['code128'] }} onBarcodeScanned={handleCodeScanned} />
                     </View>
                     :
-                    <Checking />
+                    <View>
+                        <Text>Checking...</Text>
+                    </View>
                 }
             </View>
         }

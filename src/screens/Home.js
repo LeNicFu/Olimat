@@ -5,16 +5,15 @@ import olimat from '../../assets/olimat.png'
 import { GlobalContext } from '../context'
 import Navegar from '../botoes/navegar'
 import Apagar from '../botoes/apagar'
-import { CriarTabelaAlunos, getAlunos } from '../data'
-import Teste from '../data/schools'
-
+import { CriarTabelaAlunos } from '../data'
 
 export default function Home() {
-  const { tela, setTela, listaDeTelas, setListaDeTelas, escola } = useContext(GlobalContext)
+  const { setListaDeTelas, setScanned, setErro } = useContext(GlobalContext)
 
   useEffect(() => {
     setListaDeTelas(['home'])
-    CriarTabelaAlunos()
+    setScanned(false)
+    setErro(false)
   }, [])
 
   async function limpaNome() {
@@ -44,7 +43,6 @@ export default function Home() {
             proximaTela={'enviar'}
             titulo={'Enviar a lista'}
           />
-          <Teste />
           <Apagar
             proximaTela={'apagarLista'}
             titulo={'Apagar a lista'}

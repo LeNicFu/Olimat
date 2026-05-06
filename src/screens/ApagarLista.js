@@ -7,7 +7,7 @@ import Screen from '../build/Screen'
 import estilos from '../styles'
 
 export default function ApagarLista() {
-    const { listaDeTelas, setListaDeTelas, setTela } = useContext(GlobalContext)
+    const { listaDeTelas, setListaDeTelas, setTela, setEscola } = useContext(GlobalContext)
 
     const [numero, setNumero] = useState(undefined)
 
@@ -44,7 +44,7 @@ export default function ApagarLista() {
                 />
                 <View style={estilos.containerBotaoExcluir}>
                     <TouchableOpacity style={estilos.botaoExcluir}
-                        onPress={() => (numero == 2026 ? [Apaga(), setTela('home'), setListaDeTelas(['home'])] : undefined)}
+                        onPress={() => (numero == 2026 ? [Apaga(), setTela('loading'), setListaDeTelas(['home'], setEscola(''))] : undefined)}
                     >
                         <Text style={estilos.textoBotao}>
                             Confirmar

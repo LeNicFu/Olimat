@@ -26,6 +26,11 @@ export default StyleSheet.create({
         width: '90%',
         borderRadius: 15
     },
+    containerAlerta: {
+        backgroundColor: '#f53016',
+        width: '90%',
+        borderRadius: 15
+    },
     confereNumero: {
         fontSize: 25,
         textAlign: 'center'

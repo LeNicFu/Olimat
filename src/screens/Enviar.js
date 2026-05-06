@@ -1,44 +1,27 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Screen from '../build/Screen'
-import Navegar from '../botoes/navegar'
 import estilos from '../styles'
-import { use, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../context'
 import { getAlunos } from '../data'
 import { } from 'react-native'
 import * as MailComposer from 'expo-mail-composer'
-import { School } from '../data/schools'
+import Alerta from '../botoes/alerta'
 
 
 export default function Enviar() {
-    const { listaDeTelas, escola, setEscola, test, setTest, alunos, setAlunos } = useContext(GlobalContext)
+    const { escola } = useContext(GlobalContext)
 
     const [alunosEnviar, setAlunosEnviar] = useState([])
     const [senhaEnviar, setSenhaEnviar] = useState('')
-    const [reload, setReload] = useState(false)
 
     useEffect(() => {
-        setAlunos(getAlunos())
+        setAlunosEnviar(getAlunos())
     }, [])
-    
-    useEffect(() => {
-        if (alunos[0]) {
-            setEscola(School(alunos[0].codigo))
-        }
-        // alert('Por favor, digite a senha antes de enviar. Ao clicar no botão "Enviar a lista" a janela do seu e-mail será aberta com a mensagem pronta para ser enviada. Então basta clicar no ícone de enviar.')
-    }, [reload])
 
     function ListaOrdemAlfabetica() {
         alunosEnviar.sort(function (a, b) {
-            if (a.nome > b.nome) {
-                return 1
-            }
-            if (a.nome < b.nome) {
-                return -1
-            }
-            if (a.nome = b.nome) {
-                return 0
-            }
+            return a.nome.localeCompare(b.nome, 'pt', { sensitivity: 'base' })
         })
     }
 
@@ -61,7 +44,7 @@ export default function Enviar() {
             enviarEmail()
             console.log('Abrindo o app de e-mail')
         } else {
-            alert('A senha está incorreta ou o campo para o nome da "escola" está em branco.')
+            alert('A senha está incorreta.')
         }
     }
 
@@ -69,34 +52,35 @@ export default function Enviar() {
         topBarTitle={'Enviar a lista'}
         body={
             <View style={estilos.container}>
-                {escola ?
-                    <Text style={{ paddingBottom: 40, fontSize: 30, textAlign: 'center' }}>
-                        {escola}
-                    </Text>
-                    :
-                    <TouchableOpacity
-                    onPress={() => setReload(!reload)}
-                    >
-                            <Text style={[estilos.nome, {color: '#666666'}]}>
-                                Escola
-                            </Text>
-                    </TouchableOpacity>
-                }
-                <TextInput
-                    style={estilos.nome}
-                    placeholder='Senha'
-                    onChangeText={newNome => setSenhaEnviar(newNome)}
-                    defaultValue={senhaEnviar}
-                />
-                <View style={estilos.containerBotao}>
-                    <TouchableOpacity style={estilos.botao}
-                        onPress={enviar}
-                    >
-                        <Text style={estilos.textoBotao}>
-                            Enviar a lista
+                {escola.length === 0 ?
+                    <>
+                        <Alerta />
+                        <Text style={{ paddingBottom: 40, fontSize: 30, textAlign: 'center' }}>
+                            Nenhum código foi registrado até o momento
                         </Text>
-                    </TouchableOpacity>
-                </View>
+                    </>
+                    :
+                    <>
+                        <Text style={{ paddingBottom: 40, fontSize: 30, textAlign: 'center' }}>
+                            {escola}
+                        </Text>
+                        <TextInput
+                            style={estilos.nome}
+                            placeholder='Senha'
+                            onChangeText={newNome => setSenhaEnviar(newNome)}
+                            defaultValue={senhaEnviar}
+                        />
+                        <View style={estilos.containerBotao}>
+                            <TouchableOpacity style={estilos.botao}
+                                onPress={enviar}
+                            >
+                                <Text style={estilos.textoBotao}>
+                                    Enviar a lista
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </>
+                }
             </View>
         }
     />
