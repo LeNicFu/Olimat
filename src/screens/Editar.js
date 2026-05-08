@@ -6,11 +6,13 @@ import { apagarNome } from '../data'
 import { useContext } from 'react'
 
 export default function Editar() {
-    const { codigo, nome, id, setTela, listaDeTelas, setListaDeTelas } = useContext(GlobalContext)
-    //console.log('LISTA DE TELAS:', listaDeTelas)
+    const { codigo, nome, id, setTela, listaDeTelas, setListaDeTelas, alunos, setEscola } = useContext(GlobalContext)
 
     async function excluirNome() {
         await apagarNome(id)
+        if (alunos.length === 1) {
+            setEscola('')
+        }
         return alert(`O nome\n${nome}\nfoi excluído da lista`)
     }
     return <Screen

@@ -8,7 +8,7 @@ import Apagar from '../botoes/apagar'
 import { CriarTabelaAlunos } from '../data'
 
 export default function Home() {
-  const { setListaDeTelas, setScanned, setErro } = useContext(GlobalContext)
+  const { setListaDeTelas, setScanned, setErro, alunos, escola } = useContext(GlobalContext)
 
   useEffect(() => {
     setListaDeTelas(['home'])

@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native'
 import Screen from '../build/Screen'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '../context'
 import estilos from '../styles'
 import Navegar from '../botoes/navegar'
@@ -11,7 +11,12 @@ import { School } from '../Checking'
 
 
 export default function Scanned() {
-    const { codigo, alunos, checkingSchool, setScanned, escola, checkingCode, setTela, erro } = useContext(GlobalContext)
+    const { codigo, alunos, checkingSchool, setScanned, escola, setEscola, checkingCode, setTela, erro } = useContext(GlobalContext)
+
+    const [reload, setReload] = useState(false)
+
+    useEffect(() => {
+    }, [reload])
 
     return <Screen
         topBarTitle={'Scanner'}
@@ -22,10 +27,9 @@ export default function Scanned() {
                         <Erro />
                     </> :
                     <>
-                        {console.log(checkingSchool)}
                         {!checkingSchool ?
                             <>
-                            <Alerta />
+                                <Alerta />
                                 <View style={estilos.containerAlerta}>
                                     <Text style={estilos.confereNumero}>
                                         {codigo}
@@ -52,29 +56,37 @@ export default function Scanned() {
                             <>
                                 {checkingCode ?
                                     <>
-                                        {escola.length === 0 ?
-                                            <View>
+                                        {escola.length === 0 && !reload ?
+                                            <View style={{ alignItems: 'center' }}>
                                                 <Text style={[estilos.confereNumero, { fontWeight: 'bold' }]}>
                                                     {School(codigo)}
                                                 </Text>
                                                 <Text style={{ fontSize: 18, textAlign: 'center', marginHorizontal: 20, marginBottom: 10 }}>
                                                     Se a identificação da escola não estiver correta, use o botão para escanear novamente.
                                                 </Text>
+                                                <TouchableOpacity style={estilos.botao}
+                                                    onPress={() => setReload(true)}
+                                                >
+                                                    <Text style={estilos.textoBotao}>
+                                                        Confirmar escola
+                                                    </Text>
+                                                </TouchableOpacity>
                                             </View> :
-                                            null
+                                            <>
+                                                <View style={estilos.containerConfereNumero}>
+                                                    <Text style={estilos.confereNumero}>
+                                                        {codigo}
+                                                    </Text>
+                                                    <Text style={estilos.confereNumero}>
+                                                        Se o número estiver correto confirme no botão abaixo para digitar o nome, caso contrário, toque no botão para escanear novamente
+                                                    </Text>
+                                                </View>
+                                                <Navegar
+                                                    proximaTela={'nome'}
+                                                    titulo={'Nome'}
+                                                />
+                                            </>
                                         }
-                                        <View style={estilos.containerConfereNumero}>
-                                            <Text style={estilos.confereNumero}>
-                                                {codigo}
-                                            </Text>
-                                            <Text style={estilos.confereNumero}>
-                                                Se o número estiver correto confirme no botão abaixo para digitar o nome, caso contrário, toque no botão para escanear novamente
-                                            </Text>
-                                        </View>
-                                        <Navegar
-                                            proximaTela={'nome'}
-                                            titulo={'Nome'}
-                                        />
                                         <View style={estilos.containerBotao}>
                                             <TouchableOpacity style={estilos.botao}
                                                 onPress={() => [setScanned(false), setTela('scanner')]}>

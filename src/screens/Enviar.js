@@ -1,12 +1,14 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import Screen from '../build/Screen'
-import estilos from '../styles'
 import { useContext, useEffect, useState } from 'react'
-import { GlobalContext } from '../context'
-import { getAlunos } from '../data'
-import { } from 'react-native'
 import * as MailComposer from 'expo-mail-composer'
+import * as Clipboard from 'expo-clipboard'
+import { Entypo } from '@expo/vector-icons'
+import { GlobalContext } from '../context'
 import Alerta from '../botoes/alerta'
+import Screen from '../build/Screen'
+import { getAlunos } from '../data'
+import estilos from '../styles'
+import { } from 'react-native'
 
 
 export default function Enviar() {
@@ -42,10 +44,15 @@ export default function Enviar() {
     function enviar() {
         if (escola.length > 0 && senhaEnviar == '26olimat26') {
             enviarEmail()
-            console.log('Abrindo o app de e-mail')
         } else {
             alert('A senha está incorreta.')
         }
+    }
+
+    const copiarParaClipboard = async () => {
+        const lista = JSON.stringify(alunosEnviar)
+        await Clipboard.setStringAsync(lista)
+        alert('Lista copiada para a área de transferência!')
     }
 
     return <Screen
@@ -61,6 +68,13 @@ export default function Enviar() {
                     </>
                     :
                     <>
+                    <TouchableOpacity
+                        style={{ position: 'absolute', top: 10, right: 10 }}
+                        onPress={() => copiarParaClipboard()}
+                    >
+                        <Entypo name={'copy'} size={50} color= 'black' />
+                    </TouchableOpacity>
+
                         <Text style={{ paddingBottom: 40, fontSize: 30, textAlign: 'center' }}>
                             {escola}
                         </Text>
