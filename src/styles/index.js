@@ -99,3 +99,24 @@ export const estilo = StyleSheet.create({
         fontWeight: '500'
     }
 })
+
+export const estiloModal = StyleSheet.create({
+    containerModal1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    containerModal2: {
+        width: '86%',
+        height: '25%',
+        backgroundColor: '#ffffff',
+        borderRadius: 24,
+        borderWidth: 1
+    },
+    containerModal3: {
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-evenly',
+        height: '100%'
+    },
+})

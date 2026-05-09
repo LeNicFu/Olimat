@@ -1,7 +1,8 @@
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
-import { useContext } from 'react'
 import { GlobalContext } from '../context'
 import Screen from '../build/Screen'
+import { useContext } from 'react'
+import Ano from '../components'
 
 export default function ListaOrdenada() {
     const { listaDeTelas, setListaDeTelas, setTela, fatorDeOrdenacao, alunos, escola } = useContext(GlobalContext)
@@ -41,12 +42,25 @@ export default function ListaOrdenada() {
         return <TouchableOpacity style={estilo.container}
             onPress={() => [editar(codigo, nome, id), setTela('editar'), setListaDeTelas([...listaDeTelas, 'editar'])]}
         >
-            <Text style={estilo.textoNome}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+                <Ano
+                    codigo={codigo}
+                />
+                <View style={{ flex: 1, alignItems: 'center', borderLeftWidth: .5 }}>
+                    <Text style={estilo.textoNome}>
+                        {nome}
+                    </Text>
+                    <Text style={estilo.textoCodigo}>
+                        {codigo}
+                    </Text>
+                </View>
+            </View>
+            {/* <Text style={estilo.textoNome}>
                 {nome}
             </Text>
             <Text style={estilo.textoCodigo}>
                 {codigo}
-            </Text>
+            </Text> */}
         </TouchableOpacity>
     }
 
@@ -63,7 +77,7 @@ export default function ListaOrdenada() {
                         <Text style={estilo.textoEscola}>
                             {escola}
                         </Text>
-                        <Text style={{fontSize: 18, lineHeight: 24, fontWeight: '500'}}>
+                        <Text style={{ fontSize: 18, lineHeight: 24, fontWeight: '500' }}>
                             Total:   {alunos.length}
                         </Text>
                     </View>
@@ -78,7 +92,7 @@ export const estilo = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 65,
+        minHeight: 65,
         backgroundColor: '#BCB9BA',
         marginHorizontal: 4,
         marginVertical: 2,
@@ -87,7 +101,10 @@ export const estilo = StyleSheet.create({
     textoNome: {
         fontSize: 20,
         lineHeight: 24,
-        fontWeight: '500'
+        fontWeight: '500',
+        paddingHorizontal: 5,
+        textAlign: 'center',
+        paddingTop: 5
     },
     textoEscola: {
         fontSize: 20,

@@ -7,13 +7,16 @@ import Screen from '../build/Screen'
 import estilos from '../styles'
 
 export default function ApagarLista() {
-    const { listaDeTelas, setListaDeTelas, setTela, setEscola } = useContext(GlobalContext)
+    const { listaDeTelas, setListaDeTelas, setTela, setEscola, setVisibleModal, setMessage } = useContext(GlobalContext)
 
     const [numero, setNumero] = useState(undefined)
 
     async function Apaga() {
         await apagarLista()
-        return alert('Toda a lista foi apagada!')
+        return (
+            setVisibleModal(true),
+            setMessage('Toda a lista foi apagada!')
+        )
     }
 
     return <Screen

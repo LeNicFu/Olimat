@@ -8,6 +8,7 @@ import Erro from '../Checking/erro'
 import { Entypo } from '@expo/vector-icons'
 import Alerta from '../botoes/alerta'
 import { School } from '../Checking'
+import { generoCrase } from '../components'
 
 
 export default function Scanned() {
@@ -35,7 +36,7 @@ export default function Scanned() {
                                         {codigo}
                                     </Text>
                                     <Text style={estilos.confereNumero}>
-                                        O código não pertence à escola
+                                        O código não pertence {generoCrase(escola)}
                                     </Text>
                                     <Text style={[estilos.confereNumero, { fontStyle: 'italic' }]}>
                                         {escola}

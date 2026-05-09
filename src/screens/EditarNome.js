@@ -1,18 +1,20 @@
-import { useContext } from 'react'
-import Screen from '../build/Screen'
-import { GlobalContext } from '../context'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import estilos from '../styles'
+import { GlobalContext } from '../context'
+import Screen from '../build/Screen'
 import { editarNome } from '../data'
+import { useContext } from 'react'
+import estilos from '../styles'
 
 
 export default function EditarNome() {
-    const { listaDeTelas, codigo, setCodigo, nome, setNome, id, setId, setTela } = useContext(GlobalContext)
-    //console.log('LISTA DE TELAS:', listaDeTelas)
+    const { listaDeTelas, codigo, setCodigo, nome, setNome, id, setId, setTela, setVisibleModal, setMessage } = useContext(GlobalContext)
 
     async function confirma() {
         await editarNome(nome, id)
-        return alert(`O nome foi atualizado para\n${nome}`)
+        return (
+            setVisibleModal(true),
+            setMessage(`O nome foi atualizado para\n\n${nome}`)
+        )
     }
 
     return <Screen

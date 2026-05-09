@@ -16,6 +16,9 @@ export function InfoProvider({ children }) {
     const [erro, setErro] = useState(false)
     const [checkingCode, setCheckingCode] = useState(false)
     const [checkingSchool, setCheckingSchool] = useState(false)
+    const [dataSchool, setDataSchool] = useState(null)
+    const [visibleModal, setVisibleModal] = useState(false)
+    const [message, setMessage] = useState('')
     
 
     return (
@@ -33,6 +36,9 @@ export function InfoProvider({ children }) {
             erro, setErro,
             checkingCode, setCheckingCode,
             checkingSchool, setCheckingSchool,
+            dataSchool, setDataSchool,
+            visibleModal, setVisibleModal,
+            message, setMessage
         }}>
             {children}
         </GlobalContext.Provider>

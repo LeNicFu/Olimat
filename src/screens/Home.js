@@ -1,14 +1,15 @@
-import { View, Text, ImageBackground } from 'react-native'
-import estilos from '../styles'
+import { View, Text, ImageBackground, Modal } from 'react-native'
+import ActionModal from '../components/actionModal'
 import { useContext, useEffect } from 'react'
 import olimat from '../../assets/olimat.png'
+import { CriarTabelaAlunos } from '../data'
 import { GlobalContext } from '../context'
 import Navegar from '../botoes/navegar'
 import Apagar from '../botoes/apagar'
-import { CriarTabelaAlunos } from '../data'
+import estilos from '../styles'
 
 export default function Home() {
-  const { setListaDeTelas, setScanned, setErro, alunos, escola } = useContext(GlobalContext)
+  const { setListaDeTelas, setScanned, setErro, alunos, escola, visibleModal } = useContext(GlobalContext)
 
   useEffect(() => {
     setListaDeTelas(['home'])
@@ -49,6 +50,12 @@ export default function Home() {
           />
         </ImageBackground>
       </View>
+      <Modal
+        visible={visibleModal}
+        transparent={true}
+      >
+        <ActionModal />
+      </Modal>
     </View>
   )
 }//66

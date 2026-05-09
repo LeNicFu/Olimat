@@ -1,4 +1,4 @@
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
 import * as MailComposer from 'expo-mail-composer'
 import * as Clipboard from 'expo-clipboard'
@@ -9,10 +9,11 @@ import Screen from '../build/Screen'
 import { getAlunos } from '../data'
 import estilos from '../styles'
 import { } from 'react-native'
+import ActionModal from '../components/actionModal'
 
 
 export default function Enviar() {
-    const { escola } = useContext(GlobalContext)
+    const { escola, visibleModal, setVisibleModal, setMessage } = useContext(GlobalContext)
 
     const [alunosEnviar, setAlunosEnviar] = useState([])
     const [senhaEnviar, setSenhaEnviar] = useState('')
@@ -52,7 +53,8 @@ export default function Enviar() {
     const copiarParaClipboard = async () => {
         const lista = JSON.stringify(alunosEnviar)
         await Clipboard.setStringAsync(lista)
-        alert('Lista copiada para a área de transferência!')
+        setVisibleModal(true)
+        setMessage('Lista copiada para a área de transferência!')
     }
 
     return <Screen
@@ -95,6 +97,12 @@ export default function Enviar() {
                         </View>
                     </>
                 }
+                <Modal
+                    visible={visibleModal}
+                    transparent={true}
+                >
+                    <ActionModal />
+                </Modal>
             </View>
         }
     />

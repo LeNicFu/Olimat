@@ -1,13 +1,13 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
-import Screen from '../build/Screen'
-import estilos from '../styles'
-import { useContext } from 'react'
 import { GlobalContext } from '../context'
-import Insere from '../data'
+import Screen from '../build/Screen'
 import { School } from '../Checking'
+import { useContext } from 'react'
+import estilos from '../styles'
+import Insere from '../data'
 
 export default function Nome() {
-    const { codigo, setCodigo, nome, setNome, listaDeTelas, setTela, escola, setEscola } = useContext(GlobalContext)
+    const { codigo, setCodigo, nome, setNome, listaDeTelas, setTela, escola, setEscola, setVisibleModal, setMessage } = useContext(GlobalContext)
 
     async function ColetaDados() {
         await Insere(codigo, nome)
@@ -18,7 +18,8 @@ export default function Nome() {
             setCodigo(''),
             setNome(''),
             setTela('home'),
-            alert(`O nome\n${nome}\nfoi inserido com o código\n${codigo}`)
+            setVisibleModal(true),
+            setMessage(`O nome\n${nome}\nfoi inserido com o código\n${codigo}`)
         )
     }
 
